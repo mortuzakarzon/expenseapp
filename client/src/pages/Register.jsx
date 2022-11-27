@@ -1,34 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import{toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import Spinner from "../components/Spinner";
 
 function Register() {
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const onFinish = async (values) => {
         try {
- 
-          const response = await axios.post("/api/users/register", values);
+            setLoading(true);
+            const response = await axios.post("/api/users/register", values);
+            setLoading(true);
+            if (response.data.success) {
+                toast.success(response.data.message);
+                setLoading(false);
 
-          if (response.data.success) {
-            toast.success(response.data.message);
-            navigate("/login");
-          } else {
-            toast.error(response.data.message);
-          }
-    
-    
-    
+                navigate("/login");
+            } else {
+                setLoading(false);
+                toast.error(response.data.message);
+            }
+
+
+
         } catch (error) {
 
-          console.log(error);
+            console.log(error);
         }
-      }
+    }
 
-
+useEffect(() => {
+  if(localStorage.getItem("token")){
+    navigate("/");
+  }
+}, []);
     return (
-        <div className="App">
+        <div className="login-register">
+            {loading && <Spinner />}
             <Form name="basic" className="reg-form p-4" onFinish={onFinish} autoComplete="on" layout="vertical">
                 <Form.Item
                     label="Name"

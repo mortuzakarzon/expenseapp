@@ -3,22 +3,27 @@ import { Button, Form, Input } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import Spinner from "../components/Spinner";
+import { useEffect } from "react";
 
 function Login() {
 
-
+const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onFinish = async(values) => {
     try {
-     
+      setLoading(true);
       const response = await axios.post("/api/users/login", values);
    
       if (response.data.success) {
           toast.success(response.data.message);
           localStorage.setItem("token", response.data.token);
+          setLoading(false);
           navigate("/");
       } else {
+        setLoading(false);
           toast.error(response.data.message);
       }
   } catch (error) {
@@ -27,8 +32,16 @@ function Login() {
 
   };
 
+useEffect(() => {
+  if(localStorage.getItem("token")){
+    navigate("/")
+  }
+}, []);
+
+
   return (
-    <div className="App">
+    <div className="login-register">
+      {loading && <Spinner />}
       <Form name="basic" className="reg-form p-4" onFinish={onFinish} autoComplete="on" layout="vertical">
         <Form.Item
           label="email"

@@ -68,7 +68,8 @@ router.post("/login", async(req, res) => {
             res.status(200).send({
                 message: "Login successfull",
                 success: true,
-                token: token
+                token: token,
+            
 
             });
         }
@@ -99,10 +100,6 @@ router.post("/get-info-by-id", authmiddlewire, async(req, res) => {
         }else{
             res.status(200).send({
                 success: true,
-                data:{
-                    name: user.name,
-                    email: user.email
-                }
             })
         }
     } catch (error) {

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import DefaultLayout from "../components/DefaultLayout";
 
 function Home() {
 
@@ -21,10 +22,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="App">
-      Home
-
-    </div>
+    <DefaultLayout></DefaultLayout>
   );
 }
 
