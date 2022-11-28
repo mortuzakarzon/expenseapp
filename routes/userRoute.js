@@ -45,8 +45,11 @@ router.post("/login", async(req, res) => {
     try {
         
         const user = await User.findOne({
-            email: req.body.email
+            email: req.body.email,
         });
+
+
+       
 
         if(!user){
             return res.status(200).send({
@@ -69,6 +72,7 @@ router.post("/login", async(req, res) => {
                 message: "Login successfull",
                 success: true,
                 token: token,
+                user
             
 
             });

@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 import Spinner from "../components/Spinner";
-import { useEffect } from "react";
+
 
 function Login() {
 
@@ -20,6 +20,10 @@ const [loading, setLoading] = useState(false);
       if (response.data.success) {
           toast.success(response.data.message);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem(
+            "go-money-user",
+            JSON.stringify({ ...response.data.user})
+          );
           setLoading(false);
           navigate("/");
       } else {
@@ -32,11 +36,7 @@ const [loading, setLoading] = useState(false);
 
   };
 
-useEffect(() => {
-  if(localStorage.getItem("token")){
-    navigate("/")
-  }
-}, []);
+
 
 
   return (
