@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -35,9 +35,11 @@ const [loading, setLoading] = useState(false);
   }
 
   };
-
-
-
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      navigate("/");
+    }
+  });
 
   return (
     <div className="login-register">

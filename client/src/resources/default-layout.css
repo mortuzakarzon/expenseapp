@@ -14,9 +14,14 @@
 
 .logo{
     font-size: 25px;
-        margin: 0 !important;
-        cursor: pointer;
+    margin: 0 !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    
+
+        
 }
+
 
 .username{
     font-size: 20px;

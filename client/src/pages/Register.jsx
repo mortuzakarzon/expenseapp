@@ -35,7 +35,7 @@ useEffect(() => {
   if(localStorage.getItem("token")){
     navigate("/");
   }
-}, []);
+});
     return (
         <div className="login-register">
             {loading && <Spinner />}
