@@ -5,7 +5,7 @@ import { Dropdown, Menu, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 
 function DefaultLayout(props) {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("go-money-user"));
   const menu = (
     <Menu
@@ -13,11 +13,11 @@ function DefaultLayout(props) {
         {
           key: '1',
           label: (
-            <li onClick={()=>{
+            <li onClick={() => {
               localStorage.removeItem("token");
               localStorage.removeItem("go-money-user");
               navigate("/login");
-            }}> logout</li>
+            }}> Logout</li>
           ),
         },
       ]}
@@ -36,19 +36,22 @@ function DefaultLayout(props) {
         <div className="username">
 
           <Dropdown overlay={menu}>
-            <a onClick={(e) => e.preventDefault()}>
+
+            <button className="userButton" onClick={(e) => e.preventDefault()}>
               <Space>
                 {user.name}
                 <DownOutlined />
               </Space>
-            </a>
+            </button>
+
+
           </Dropdown>
 
         </div>
       </div>
 
       <div className="content">
-
+        {props.children}
       </div>
 
     </div>

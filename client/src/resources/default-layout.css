@@ -11,7 +11,6 @@
     color: white;
 }
 
-
 .logo{
     font-size: 25px;
     margin: 0 !important;
@@ -27,23 +26,25 @@
     font-size: 20px;
     cursor: pointer;
 }
-
+.userButton{
+    border-radius: 10px;
+    color: black;
+}
 
 .content{
     height: 85vh;
     box-shadow: 0 0 3px grey;
+    margin-top: 20px;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    margin-top: 10px;
+    padding: 15px;
+    overflow-y: scroll;
+
+    
 }
 
 
 
-@media only screen and (max-width: 700px) {
-    .layout{
-        margin: 0 10px;
-    }
-  }
 
 
   .spinner{
@@ -57,4 +58,11 @@
 
   .ant-spin-dot-item{
     background-color: grey !important
+  }
+
+
+  @media only screen and (max-width: 700px) {
+    .layout{
+        margin: 0 10px;
+    }
   }

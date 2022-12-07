@@ -46,7 +46,7 @@ const [loading, setLoading] = useState(false);
       {loading && <Spinner />}
       <Form name="basic" className="reg-form p-4" onFinish={onFinish} autoComplete="on" layout="vertical">
         <Form.Item
-          label="email"
+          label="Email"
           name="email"
           rules={[
             {

@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import DefaultLayout from "../components/DefaultLayout";
+import "../resources/transactions.css";
 
 function Home() {
 
@@ -22,7 +23,25 @@ function Home() {
   }, []);
 
   return (
-    <DefaultLayout></DefaultLayout>
+    <DefaultLayout>
+      <div className="filter d-flex justify-content-between align-items-center">
+        <div>
+          
+        </div>
+
+        <div>
+          <button className="primary"> ADD NEW </button>
+        </div>
+
+      </div>
+
+      <div className="table-analytics">
+
+      </div>
+
+
+
+    </DefaultLayout>
   );
 }
 
