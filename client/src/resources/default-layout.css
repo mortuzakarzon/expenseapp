@@ -29,6 +29,7 @@
 .userButton{
     border-radius: 10px;
     color: black;
+    padding-bottom: 6px;
 }
 
 .content{
