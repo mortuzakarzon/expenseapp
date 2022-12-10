@@ -35,7 +35,7 @@ function DefaultLayout(props) {
         </div>
         <div className="username">
 
-          <Dropdown overlay={menu}>
+          <Dropdown menu={menu}>
 
             <button className="userButton" onClick={(e) => e.preventDefault()}>
               <Space>

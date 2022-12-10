@@ -9,6 +9,11 @@ import { Form, Input, Select } from 'antd';
 
 function Home() {
   const [showEditTransactionModel, setShowEditTransactionModel] = useState(false);
+  
+  const onFinish = (values) => {
+    console.log(values);
+  }
+  
   const getData = async () => {
     try {
       const response = await axios.post("/api/users/get-info-by-id", {}, {
@@ -18,7 +23,7 @@ function Home() {
       });
       console.log(response.data);
     } catch (error) {
-
+      console.log(error);
     }
   }
   useEffect(() => {
@@ -44,15 +49,17 @@ function Home() {
 
       </div>
 
-      <Modal title="Add Transaction"
-        visible={showEditTransactionModel}
+      <Modal
+        title="Add Transaction"
+        open={showEditTransactionModel}
         setOpen={setShowEditTransactionModel}
         onCancel={() => {
           setShowEditTransactionModel(false)
         }}
+        footer={false}
       >
 
-        <Form layout="vertical">
+        <Form layout="vertical" onFinish={onFinish}>
           <Form.Item
             label="Amount"
             name="amount"
@@ -75,7 +82,7 @@ function Home() {
           ><Select>
               <Select.Option value="income">Income</Select.Option>
               <Select.Option value="expense">Expense</Select.Option>
-              
+
             </Select>
 
           </Form.Item>
@@ -98,27 +105,32 @@ function Home() {
             </Select>
 
           </Form.Item>
-          
-            <Form.Item
-              label="Date"
-              name="date"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input type="date" />
-            </Form.Item>
 
-            <Form.Item label="References" name="references">
-              <Input type="text" />
-            </Form.Item>
+          <Form.Item
+            label="Date"
+            name="date"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input type="date" />
+          </Form.Item>
 
-            <Form.Item label="Description" name="description">
-              <Input type="text" />
-            </Form.Item>
-          </Form>
+          <Form.Item label="References" name="references">
+            <Input type="text" />
+          </Form.Item>
+
+          <Form.Item label="Description" name="description">
+            <Input type="text" />
+          </Form.Item>
+
+          <div className="d-flex justify-content-end">
+
+            <button className="primary saveButton" type="submit">SAVE </button>
+          </div>
+        </Form>
       </Modal>
 
 
