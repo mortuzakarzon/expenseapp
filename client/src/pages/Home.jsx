@@ -43,14 +43,16 @@ function Home() {
       <div className="table-analytics">
 
       </div>
+      
+      <div>
+        {showEditTransactionModel && (<AddEditTransaction
+          showEditTransactionModel={showEditTransactionModel}
+          setShowEditTransactionModel={setShowEditTransactionModel}
+        />)
 
-      {showEditTransactionModel && (<AddEditTransaction
-        showEditTransactionModel={showEditTransactionModel} 
-        setShowEditTransactionModel= {setShowEditTransactionModel}
-        />)}
+        }
 
-
-
+      </div>
 
 
     </DefaultLayout>

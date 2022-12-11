@@ -9,10 +9,10 @@ router.post("/add-transaction", async (req, res) => {
     try {
         const newTransaction = new Transaction(req.body);
         await newTransaction.save();
-        res.send({message: "Registration Successfull", success: true});
+        res.send({message: "Transaction Successfull", success: true});
     } catch (error) {
         return res.status(200).send({
-            message: "Registration not Successfull",
+            message: " Not Successfull",
             success: false
         })
     }

@@ -1,28 +1,25 @@
 import React from "react";
 import "../resources/default-layout.css";
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown,  Space } from 'antd';
+
 
 function DefaultLayout(props) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("go-money-user"));
-  const menu = (
-    <Menu
-      items={[
-        {
-          key: '1',
-          label: (
-            <li onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("go-money-user");
-              navigate("/login");
-            }}> Logout</li>
-          ),
-        },
-      ]}
-    />
-  );
+  const items = [
+    {
+      key: '1',
+      label: (
+        <p onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("go-money-user");
+          navigate("/login");
+        }}> Logout</p>
+      ),
+    }
+  ];
 
 
   return (
@@ -35,17 +32,19 @@ function DefaultLayout(props) {
         </div>
         <div className="username">
 
-          <Dropdown menu={menu}>
-
-            <button className="userButton" onClick={(e) => e.preventDefault()}>
+          <Dropdown
+            menu={{
+              items,
+            }}
+          >
+            <li onClick={(e) => e.preventDefault()}>
               <Space>
                 {user.name}
                 <DownOutlined />
               </Space>
-            </button>
-
-
+            </li>
           </Dropdown>
+
 
         </div>
       </div>

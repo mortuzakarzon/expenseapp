@@ -25,6 +25,7 @@
 .username{
     font-size: 20px;
     cursor: pointer;
+    list-style: none;
 }
 .userButton{
     border-radius: 10px;
