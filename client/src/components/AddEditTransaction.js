@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Spinner from "./Spinner";
 
-function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionModel }) {
+function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionModel, getTransaction }) {
     const [loading, setLoading] = useState(false);
     const user = JSON.parse(localStorage.getItem("go-money-user"))
     const onFinish = async (values) => {
@@ -14,6 +14,7 @@ function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionMo
             const response = await axios.post("/api/transactions/add-transaction", { ...values, userid: user._id });
             setLoading(true);
             if (response.data.success) {
+                getTransaction();
                 toast.success(response.data.message);
                 setShowEditTransactionModel(false);
                 setLoading(false);
@@ -22,9 +23,6 @@ function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionMo
                 setLoading(false);
                 toast.error(response.data.message);
             }
-
-
-
         } catch (error) {
 
             console.log(error);

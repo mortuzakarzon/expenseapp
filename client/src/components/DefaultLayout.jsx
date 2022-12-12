@@ -2,7 +2,7 @@ import React from "react";
 import "../resources/default-layout.css";
 import { useNavigate } from "react-router-dom";
 import { DownOutlined } from '@ant-design/icons';
-import { Dropdown,  Space } from 'antd';
+import { Dropdown, Space } from 'antd';
 
 
 function DefaultLayout(props) {
@@ -12,11 +12,11 @@ function DefaultLayout(props) {
     {
       key: '1',
       label: (
-        <p onClick={() => {
+        <li onClick={() => {
           localStorage.removeItem("token");
           localStorage.removeItem("go-money-user");
           navigate("/login");
-        }}> Logout</p>
+        }}> Logout</li>
       ),
     }
   ];
@@ -36,6 +36,7 @@ function DefaultLayout(props) {
             menu={{
               items,
             }}
+            placement="topLeft"
           >
             <li onClick={(e) => e.preventDefault()}>
               <Space>
@@ -43,6 +44,7 @@ function DefaultLayout(props) {
                 <DownOutlined />
               </Space>
             </li>
+
           </Dropdown>
 
 

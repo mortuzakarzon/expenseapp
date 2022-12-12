@@ -21,16 +21,14 @@
         
 }
 
-
 .username{
-    font-size: 20px;
     cursor: pointer;
     list-style: none;
+    font-weight: bold;
 }
 .userButton{
     border-radius: 10px;
     color: black;
-    padding-bottom: 6px;
 }
 
 .content{
