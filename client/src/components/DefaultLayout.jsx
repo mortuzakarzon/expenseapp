@@ -12,7 +12,7 @@ function DefaultLayout(props) {
     {
       key: '1',
       label: (
-        <li onClick={() => {
+        <li className="logout" onClick={() => {
           localStorage.removeItem("token");
           localStorage.removeItem("go-money-user");
           navigate("/login");
