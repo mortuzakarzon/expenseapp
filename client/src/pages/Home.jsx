@@ -16,6 +16,7 @@ function Home() {
   const [showEditTransactionModel, setShowEditTransactionModel] = useState(false);
   const [transationData, setTransactionData] = useState([]);
   const [frequency, setFrequency] = useState("7");
+  const [type, setType] = useState("all");
   const [selectedRange, setSelectedRange] = useState([]);
 
   const getData = async () => {
@@ -40,6 +41,7 @@ function Home() {
           userid: user._id,
           frequency,
           ...(frequency === "custom" && { selectedRange }),
+          type
         }
       );
       console.log(response.data);
@@ -57,10 +59,10 @@ function Home() {
 
   useEffect(() => {
     getTransaction();
-  }, [frequency, selectedRange]);
+  }, [frequency, selectedRange, type]);
 
   const columns = [
-       {
+    {
       title: "Date",
       dataIndex: "date",
       render: (date) => <label>{moment(date).format("MM-DD-YYYY")}</label>
@@ -69,6 +71,10 @@ function Home() {
     {
       title: "Amount",
       dataIndex: "amount"
+    },
+    {
+      title: "Type",
+      dataIndex: "type"
     },
     {
       title: "Category",
@@ -85,7 +91,7 @@ function Home() {
     <DefaultLayout>
       {loading && <Spinner />}
       <div className="filter d-flex justify-content-between align-items-center">
-        <div>
+        <div className="d-flex">
           <div className="d-flex flex-column">
             <h6>Seclect Frequency</h6>
             <Select value={frequency} onChange={(value) => setFrequency(value)}>
@@ -97,17 +103,31 @@ function Home() {
           </div>
 
           {frequency === "custom" && (
-            <div className="mt-2">
-              <RangePicker
-                value={selectedRange}
-                onChange={(values) => setSelectedRange(values)}
-              />
+            <div className="mt-4">
+              <Space direction="horizontal" size={18}>
+                <RangePicker  
+                  value={selectedRange}
+                  onChange={(values) => setSelectedRange(values)}
+                />
+
+              </Space>
             </div>
           )}
 
+
+          <div className="d-flex flex-column mx-5">
+            <h6>Seclect Type</h6>
+            <Select value={type} onChange={(value) => setType(value)}>
+              <Select.Option value="all"> All</Select.Option>
+              <Select.Option value="income"> Income</Select.Option>
+              <Select.Option value="expense"> Expense</Select.Option>
+            </Select>
+          </div>
         </div>
 
-        <div>
+
+
+        <div className="d-flex">
           <button className="primary addButton" onClick={() => { setShowEditTransactionModel(true) }}>
             ADD NEW
           </button>

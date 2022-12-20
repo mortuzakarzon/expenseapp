@@ -21,7 +21,7 @@ router.post("/add-transaction", async (req, res) => {
 
 
 router.post("/get-all-transaction", async (req, res) => {
-    const { frequency, selectedRange } = req.body;
+    const { frequency, selectedRange, type } = req.body;
     try {
         const transactions = await Transaction.find({
 
@@ -39,6 +39,7 @@ router.post("/get-all-transaction", async (req, res) => {
                       },
                 }),
             userid: req.body.userid,
+            ...(type !== "all" && {type})
         });
         res.send(transactions)
     } catch (error) {
