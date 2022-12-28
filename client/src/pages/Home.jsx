@@ -8,50 +8,58 @@ import AddEditTransaction from "../components/AddEditTransaction";
 import Spinner from "../components/Spinner";
 import { Select, Table, DatePicker, Space } from "antd";
 import moment from "moment";
+import { TableOutlined, FundOutlined } from "@ant-design/icons";
+import Analytics from "../components/Analytics";
 
 const { RangePicker } = DatePicker;
 
 function Home() {
   const [loading, setLoading] = useState(false);
-  const [showEditTransactionModel, setShowEditTransactionModel] = useState(false);
+  const [showEditTransactionModel, setShowEditTransactionModel] =
+    useState(false);
   const [transationData, setTransactionData] = useState([]);
   const [frequency, setFrequency] = useState("7");
   const [type, setType] = useState("all");
   const [selectedRange, setSelectedRange] = useState([]);
+  const [viewType, setViewType] = useState("table");
 
   const getData = async () => {
     try {
-      const response = await axios.post("/api/users/get-info-by-id", {}, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.post(
+        "/api/users/get-info-by-id",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(response.data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const getTransaction = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("go-money-user"));
       setLoading(true);
-      const response = await axios.post("/api/transactions/get-all-transaction",
+      const response = await axios.post(
+        "/api/transactions/get-all-transaction",
         {
           userid: user._id,
           frequency,
           ...(frequency === "custom" && { selectedRange }),
-          type
+          type,
         }
       );
       console.log(response.data);
       setTransactionData(response.data);
       setLoading(false);
-
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getData();
@@ -65,26 +73,25 @@ function Home() {
     {
       title: "Date",
       dataIndex: "date",
-      render: (date) => <label>{moment(date).format("MM-DD-YYYY")}</label>
-
+      render: (date) => <label>{moment(date).format("MM-DD-YYYY")}</label>,
     },
     {
       title: "Amount",
-      dataIndex: "amount"
+      dataIndex: "amount",
     },
     {
       title: "Type",
-      dataIndex: "type"
+      dataIndex: "type",
     },
     {
       title: "Category",
-      dataIndex: "category"
+      dataIndex: "category",
     },
     {
       title: "References",
-      dataIndex: "references"
+      dataIndex: "references",
     },
-  ]
+  ];
 
 
   return (
@@ -98,22 +105,20 @@ function Home() {
               <Select.Option value="7"> Last 1 Week</Select.Option>
               <Select.Option value="30"> Last 1 Month</Select.Option>
               <Select.Option value="365"> Last 1 Year</Select.Option>
-              <Select.Option value="custom"> Custom</Select.Option>
+              <Select.Option value="custom"> Custom </Select.Option>
             </Select>
           </div>
 
           {frequency === "custom" && (
             <div className="mt-4">
               <Space direction="horizontal" size={18}>
-                <RangePicker  
+                <RangePicker
                   value={selectedRange}
                   onChange={(values) => setSelectedRange(values)}
                 />
-
               </Space>
             </div>
           )}
-
 
           <div className="d-flex flex-column mx-5">
             <h6>Seclect Type</h6>
@@ -125,34 +130,53 @@ function Home() {
           </div>
         </div>
 
-
-
         <div className="d-flex">
-          <button className="primary addButton" onClick={() => { setShowEditTransactionModel(true) }}>
+          <button
+            className="primary addButton"
+            onClick={() => {
+              setShowEditTransactionModel(true);
+            }}
+          >
             ADD NEW
           </button>
-        </div>
+          <div className="view-switch mx-2">
+            <TableOutlined
+              className={`mx-1 ${viewType === "table" ? "active-icon" : "inactive-icon"
+                } `}
+              onClick={() => setViewType("table")}
+              size={30}
+            />
+            <FundOutlined
+              className={`mx-1 ${viewType === "analytics" ? "active-icon" : "inactive-icon"
+                } `}
+              onClick={() => setViewType("analytics")}
+              size={30}
+            />
+          </div>
 
+
+        </div>
       </div>
 
       <div className="table-analytics">
-        <div className="table">
-          <Table columns={columns} dataSource={transationData} bordered />
-        </div>
+        {viewType === "table" ? (
+          <div className="table">
+            <Table columns={columns} dataSource={transationData} bordered />
+          </div>
+        ) : (
+          <Analytics transactions={transationData}/>
+        )}
       </div>
 
       <div>
-        {showEditTransactionModel && (<AddEditTransaction
-          showEditTransactionModel={showEditTransactionModel}
-          setShowEditTransactionModel={setShowEditTransactionModel}
-          getTransaction={getTransaction}
-        />)
-
-        }
-
+        {showEditTransactionModel && (
+          <AddEditTransaction
+            showEditTransactionModel={showEditTransactionModel}
+            setShowEditTransactionModel={setShowEditTransactionModel}
+            getTransaction={getTransaction}
+          />
+        )}
       </div>
-
-
     </DefaultLayout>
   );
 }

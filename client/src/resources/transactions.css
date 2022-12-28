@@ -2,6 +2,7 @@
     box-shadow: 0 0 3px grey;
     padding: 15px 20px;
     border-radius: 10px;
+    overflow-x: scroll;
 }
 
 .addButton {
@@ -31,6 +32,35 @@
 .saveButton:hover{
     background-color: rgb(66, 66, 66);
 }
+
+
+.view-switch{
+    border: 1px solid grey;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+
+.view-switch svg{
+    font-size: 26px;
+    cursor: pointer;
+}
+
+
+.active-icon{
+    color: black;
+    
+}
+
+.inactive-icon{
+    color: grey;
+}
+
+
+.math{
+    display: inline-flex;
+}
+
 @media only screen and (max-width: 700px) {
     .filter {
         padding: 8px 4px;
