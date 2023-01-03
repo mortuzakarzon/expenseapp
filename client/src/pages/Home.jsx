@@ -8,13 +8,15 @@ import AddEditTransaction from "../components/AddEditTransaction";
 import Spinner from "../components/Spinner";
 import { Select, Table, DatePicker, Space } from "antd";
 import moment from "moment";
-import { TableOutlined, FundOutlined, AreaChartOutlined } from "@ant-design/icons";
+import { TableOutlined, FundOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Analytics from "../components/Analytics";
 import Account from "../components/Account";
+import { toast } from "react-hot-toast";
 
 const { RangePicker } = DatePicker;
 
 function Home() {
+
   const [loading, setLoading] = useState(false);
   const [showEditTransactionModel, setShowEditTransactionModel] =
     useState(false);
@@ -23,6 +25,7 @@ function Home() {
   const [type, setType] = useState("all");
   const [selectedRange, setSelectedRange] = useState([]);
   const [viewType, setViewType] = useState("table");
+  const [selectedItemForEdit, setSelectedItemForEdit] = useState(null);
   
   const getData = async () => {
     try {
@@ -43,7 +46,9 @@ function Home() {
 
   const getTransaction = async () => {
     try {
+
       const user = JSON.parse(localStorage.getItem("go-money-user"));
+      
       setLoading(true);
       const response = await axios.post(
         "/api/transactions/get-all-transaction",
@@ -62,6 +67,32 @@ function Home() {
       console.log(error);
     }
   };
+
+  const deleteTransaction = async (record) => {
+    try {
+
+      setLoading(true);
+      const response = await axios.post(
+        "/api/transactions/delete-transaction",
+        {
+          transactionId : record._id
+        }
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+        getTransaction();
+        setLoading(false);
+
+    } else {
+        setLoading(false);
+        toast.error(response.data.message);
+    }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   useEffect(() => {
     getData();
@@ -89,6 +120,20 @@ function Home() {
       title: "References",
       dataIndex: "references",
     },
+    {
+      title: "Actions",
+      render: (text, record) => {
+        return (
+          <div>
+            <EditOutlined onClick={() => {
+              setSelectedItemForEdit(record);
+              setShowEditTransactionModel(true)
+            }}/>
+            <DeleteOutlined className="mx-3" onClick={() => deleteTransaction(record)}/>
+          </div>
+        )
+      }
+    }
   ];
 
 
@@ -178,7 +223,9 @@ function Home() {
           <AddEditTransaction
             showEditTransactionModel={showEditTransactionModel}
             setShowEditTransactionModel={setShowEditTransactionModel}
+            selectedItemForEdit = {selectedItemForEdit}
             getTransaction={getTransaction}
+            setSelectedItemForEdit = {setSelectedItemForEdit}
           />
         )}
       </div>

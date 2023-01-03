@@ -5,24 +5,50 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Spinner from "./Spinner";
 
-function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionModel, getTransaction }) {
+function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionModel, selectedItemForEdit, setSelectedItemForEdit, getTransaction }) {
     const [loading, setLoading] = useState(false);
     const user = JSON.parse(localStorage.getItem("go-money-user"))
     const onFinish = async (values) => {
         try {
             setLoading(true);
-            const response = await axios.post("/api/transactions/add-transaction", { ...values, userid: user._id });
-            setLoading(true);
-            if (response.data.success) {
-                getTransaction();
-                toast.success(response.data.message);
-                setShowEditTransactionModel(false);
-                setLoading(false);
 
+            if (selectedItemForEdit) {
+                const response = await axios.post("/api/transactions/edit-transaction", { payload :{
+                    ...values, userid: user._id,
+                }, transactionId: selectedItemForEdit._id });
+
+
+                setLoading(true);
+                if (response.data.success) {
+                    getTransaction();
+                    toast.success(response.data.message);
+                    setShowEditTransactionModel(false);
+                    setSelectedItemForEdit(null)
+                    setLoading(false);
+
+                } else {
+                    setLoading(false);
+                    toast.error(response.data.message);
+                }
             } else {
-                setLoading(false);
-                toast.error(response.data.message);
+                const response = await axios.post("/api/transactions/add-transaction", { ...values, userid: user._id });
+
+
+                setLoading(true);
+                if (response.data.success) {
+                    getTransaction();
+                    toast.success(response.data.message);
+                    setShowEditTransactionModel(false);
+                    setSelectedItemForEdit(null)
+                    setLoading(false);
+
+                } else {
+                    setLoading(false);
+                    toast.error(response.data.message);
+                }
             }
+
+
         } catch (error) {
 
             console.log(error);
@@ -32,7 +58,7 @@ function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionMo
     return (
         <div>
             <Modal
-                title="Add Transaction"
+                title={selectedItemForEdit ? "Edit Transaction" : "Add Transaction"}
                 open={showEditTransactionModel}
                 setOpen={setShowEditTransactionModel}
                 onCancel={() => {
@@ -45,7 +71,7 @@ function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionMo
                 </div>
 
 
-                <Form layout="vertical" onFinish={onFinish}>
+                <Form layout="vertical" onFinish={onFinish} initialValues={selectedItemForEdit}>
                     <Form.Item
                         label="Amount"
                         name="amount"

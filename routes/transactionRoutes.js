@@ -20,6 +20,37 @@ router.post("/add-transaction", async (req, res) => {
 
 
 
+router.post("/edit-transaction", async (req, res) => {
+
+    try {
+        await Transaction.findByIdAndUpdate({_id: req.body.transactionId}, req.body.payload)
+    
+        res.send({ message: "Transaction Updated Successfull", success: true });
+    } catch (error) {
+        return res.status(200).send({
+            message: " Not Successfull",
+            success: false
+        })
+    }
+});
+
+
+
+router.post("/delete-transaction", async (req, res) => {
+
+    try {
+        await Transaction.findByIdAndDelete({_id: req.body.transactionId})
+    
+        res.send({ message: "Transaction Deleted Successfull", success: true });
+    } catch (error) {
+        return res.status(200).send({
+            message: " Not Successfull",
+            success: false
+        })
+    }
+});
+
+
 router.post("/get-all-transaction", async (req, res) => {
     const { frequency, selectedRange, type } = req.body;
     try {
