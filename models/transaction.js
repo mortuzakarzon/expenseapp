@@ -25,10 +25,6 @@ const transactionSchema = new mongoose.Schema({
     references: {
         type: String
     },
-    description: {
-        type: String
-    }
-
 
 });
 

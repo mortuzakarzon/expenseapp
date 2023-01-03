@@ -41,9 +41,9 @@ function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionMo
                 footer={false}
             >
                 <div>
-                {loading && <Spinner />}
+                    {loading && <Spinner />}
                 </div>
-                
+
 
                 <Form layout="vertical" onFinish={onFinish}>
                     <Form.Item
@@ -72,6 +72,7 @@ function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionMo
                         </Select>
 
                     </Form.Item>
+
                     <Form.Item
                         label="Category"
                         name="category"
@@ -105,10 +106,6 @@ function AddEditTransaction({ setShowEditTransactionModel, showEditTransactionMo
                     </Form.Item>
 
                     <Form.Item label="References" name="references">
-                        <Input type="text" />
-                    </Form.Item>
-
-                    <Form.Item label="Description" name="description">
                         <Input type="text" />
                     </Form.Item>
 

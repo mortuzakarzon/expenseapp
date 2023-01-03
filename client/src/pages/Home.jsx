@@ -8,8 +8,9 @@ import AddEditTransaction from "../components/AddEditTransaction";
 import Spinner from "../components/Spinner";
 import { Select, Table, DatePicker, Space } from "antd";
 import moment from "moment";
-import { TableOutlined, FundOutlined } from "@ant-design/icons";
+import { TableOutlined, FundOutlined, AreaChartOutlined } from "@ant-design/icons";
 import Analytics from "../components/Analytics";
+import Account from "../components/Account";
 
 const { RangePicker } = DatePicker;
 
@@ -22,7 +23,7 @@ function Home() {
   const [type, setType] = useState("all");
   const [selectedRange, setSelectedRange] = useState([]);
   const [viewType, setViewType] = useState("table");
-
+  
   const getData = async () => {
     try {
       const response = await axios.post(
@@ -51,6 +52,7 @@ function Home() {
           frequency,
           ...(frequency === "custom" && { selectedRange }),
           type,
+    
         }
       );
       console.log(response.data);
@@ -83,11 +85,7 @@ function Home() {
       title: "Type",
       dataIndex: "type",
     },
-    {
-      title: "Category",
-      dataIndex: "category",
-    },
-    {
+        {
       title: "References",
       dataIndex: "references",
     },
@@ -128,6 +126,8 @@ function Home() {
               <Select.Option value="expense"> Expense</Select.Option>
             </Select>
           </div>
+
+ 
         </div>
 
         <div className="d-flex">
@@ -152,6 +152,13 @@ function Home() {
               onClick={() => setViewType("analytics")}
               size={30}
             />
+
+            <AreaChartOutlined  
+              className={`mx-1 ${viewType === "account" ? "active-icon" : "inactive-icon"
+                } `}
+              onClick={() => setViewType("account")}
+              size={30}
+            />
           </div>
 
 
@@ -159,13 +166,11 @@ function Home() {
       </div>
 
       <div className="table-analytics">
-        {viewType === "table" ? (
+        {(viewType === "table") ? (
           <div className="table">
             <Table columns={columns} dataSource={transationData} bordered />
           </div>
-        ) : (
-          <Analytics transactions={transationData}/>
-        )}
+        ) : ((viewType === "analytics") ? <Analytics transactions={transationData} /> : (<Account transactions={transationData}/>))}
       </div>
 
       <div>

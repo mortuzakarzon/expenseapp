@@ -2,6 +2,7 @@ import React from "react";
 import "../resources/analytics.css";
 import { Progress, Space } from 'antd';
 
+
 function Analytics({ transactions }) {
     const totalTransactions = transactions.length;
     const totalIncomTransactions = transactions.filter(transaction => transaction.type === "income");
@@ -16,13 +17,15 @@ function Analytics({ transactions }) {
     const totalExpenseTurnOverPercentage = (totalExpenseTurnOver / totalTurnOver) * 100;
 
 
+
+
     return (
         <div className="analytics">
 
             <div className="row">
                 <div className="col-md-4 mt-3">
                     <div className="transaction-counter">
-                        <h5>Total Transactions: {totalTransactions}</h5>
+                        <h5>Number of Income and expense</h5>
                         <hr />
                         <h6>Income: {totalIncomTransactions.length}</h6>
                         <h6>Expense: {totalExpenseTransactions.length}</h6>
@@ -37,10 +40,10 @@ function Analytics({ transactions }) {
 
                 <div className="col-md-4 mt-3">
                     <div className="transaction-counter">
-                        <h5>Total Turnover: {totalTurnOver}</h5>
+                        <h5>Total Income and Expense</h5>
                         <hr />
-                        <h6>Income: {totalIncomeTurnOver}</h6>
-                        <h6>Expense: {totalExpenseTurnOver}</h6>
+                        <h6>Income: ${totalIncomeTurnOver}</h6>
+                        <h6>Expense: ${totalExpenseTurnOver}</h6>
                         <div className="progress-bars">
                             <Space wrap>
                                 <Progress type="circle" percent={totalIncomeTurnOverPercentage.toFixed(0)} strokeColor={"green"} />
@@ -50,6 +53,7 @@ function Analytics({ transactions }) {
                     </div>
                 </div>
 
+        
                 
             </div>
 
