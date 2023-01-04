@@ -96,10 +96,12 @@ function Home() {
 
   useEffect(() => {
     getData();
+     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     getTransaction();
+     // eslint-disable-next-line
   }, [frequency, selectedRange, type]);
 
   const columns = [

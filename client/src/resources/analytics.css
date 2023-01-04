@@ -1,23 +1,21 @@
-
-.analytics{
-    
-}
-.transaction-counter{
-    box-shadow: 0 0 2px grey;
-    padding: 5px 15px;
-    border-radius: 10px;
-    color: rgb(56, 55, 55);
+/* style for the transaction counter element */
+.transaction-counter {
+  box-shadow: 0 0 2px grey;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: rgb(56, 55, 55);
 }
 
-.progress-bars{
-    padding: 15px;
+/* styles for the progress bars element */
+.progress-bars {
+  padding: 15px;
 }
 
-
-.account{
-    box-shadow: 0 0 2px grey;
-    padding: 5px 15px;
-    border-radius: 10px;
-    color: rgb(56, 55, 55);
-    margin-top: 10px;
+/* styles for the account element */
+.account {
+  box-shadow: 0 0 2px grey;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: rgb(56, 55, 55);
+  margin-top: 10px;
 }

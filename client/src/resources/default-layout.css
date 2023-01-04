@@ -1,72 +1,73 @@
-.layout{
-    margin: 0 80px
+/* layout styles */
+.layout {
+  margin: 0 80px;
 }
 
-
-.header{
-    background-color: black;
-    padding: 20px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    color: white;
-    overflow-x: scroll;
+/* header styles */
+.header {
+  background-color: black;
+  padding: 20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: white;
+  overflow-x: scroll;
 }
 
-.logo{
-    font-size: 25px;
-    margin: 0 !important;
-    text-decoration: none !important;
-    cursor: pointer;
-    
-
-        
+/* logo styles */
+.logo {
+  font-size: 25px;
+  margin: 0 !important;
+  text-decoration: none !important;
+  cursor: pointer;
 }
 
-.username{
-    cursor: pointer;
-    list-style: none;
-    font-weight: bold;
-}
-.userButton{
-    border-radius: 10px;
-    color: black;
+/* username styles */
+.username {
+  cursor: pointer;
+  list-style: none;
+  font-weight: bold;
 }
 
-.content{
-    height: 85vh;
-    box-shadow: 0 0 3px grey;
-    margin-top: 20px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    padding: 15px;
-    overflow-y: scroll;
-    overflow-x: scroll;
-
-    
+/* user button styles */
+.userButton {
+  border-radius: 10px;
+  color: black;
 }
 
-.logout{
+/* content styles */
+.content {
+  height: 85vh;
+  box-shadow: 0 0 3px grey;
+  margin-top: 20px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  padding: 15px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+/* logout styles */
+.logout {
   padding: 1px;
 }
 
+/* spinner styles */
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
 
+/* ant design spin dot item styles */
+.ant-spin-dot-item {
+  background-color: grey !important;
+}
 
-  .spinner{
-
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
+/* media query for small screens */
+@media only screen and (max-width: 700px) {
+  .layout {
+    margin: 0 10px;
   }
-
-  .ant-spin-dot-item{
-    background-color: grey !important
-  }
-
-
-  @media only screen and (max-width: 700px) {
-    .layout{
-        margin: 0 10px;
-    }
-  }
+}

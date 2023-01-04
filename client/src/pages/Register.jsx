@@ -6,90 +6,89 @@ import { toast } from "react-hot-toast";
 import Spinner from "../components/Spinner";
 
 function Register() {
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    const onFinish = async (values) => {
-        try {
-            setLoading(true);
-            const response = await axios.post("/api/users/register", values);
-            setLoading(true);
-            if (response.data.success) {
-                toast.success(response.data.message);
-                setLoading(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-                navigate("/login");
-            } else {
-                setLoading(false);
-                toast.error(response.data.message);
-            }
+  // handle form submission
+  const onFinish = async (values) => {
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/register", values);
+      setLoading(true);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setLoading(false);
 
-
-
-        } catch (error) {
-
-            console.log(error);
-        }
+        navigate("/login");
+      } else {
+        setLoading(false);
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
-
-useEffect(() => {
-  if(localStorage.getItem("token")){
-    navigate("/");
   }
-});
-    return (
-        <div className="login-register">
-            {loading && <Spinner />}
-            <Form name="basic" className="reg-form p-4" onFinish={onFinish} autoComplete="on" layout="vertical">
-                <Form.Item
-                    label="Name"
-                    name="name"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Name!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
 
-                <Form.Item
-                    label="email"
-                    name="email"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Email!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+  // navigate to the home page if a token exists in local storage
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      navigate("/");
+    }
+  }, [navigate]); // added empty dependency array to avoid infinite loop
 
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
+  return (
+    <div className="login-register">
+      {loading && <Spinner />}
+      <Form name="basic" className="reg-form p-4" onFinish={onFinish} autoComplete="on" layout="vertical">
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Name!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
 
+        <Form.Item
+          label="email"
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Email!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
 
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
-                <Link to="/login">Already Register? Please login</Link>
-            </Form>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-        </div>
-    );
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
+        <Link to="/login">Already Register? Please login</Link>
+      </Form>
+
+    </div>
+  );
 }
 
 export default Register;

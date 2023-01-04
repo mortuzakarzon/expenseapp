@@ -1,69 +1,74 @@
+/* filter styles */
 .filter {
     box-shadow: 0 0 3px grey;
     padding: 15px 20px;
     border-radius: 10px;
     overflow-x: scroll;
-}
-
-.addButton {
-    
+  }
+  
+  /* add button styles */
+  .addButton {
     background-color: black;
     color: white;
     border-radius: 6px;
-}
-
-.addButton:hover {
-    background-color: rgb(66, 66, 66)
-}
-
-.ant-select-item-option-content:hover {
+  }
+  
+  /* add button hover styles */
+  .addButton:hover {
+    background-color: rgb(66, 66, 66);
+  }
+  
+  /* ant design select item option content hover styles */
+  .ant-select-item-option-content:hover {
     font-weight: bold;
-
-}
-
-
-.saveButton{
+  }
+  
+  /* save button styles */
+  .saveButton {
     background-color: black;
     color: white;
     border-radius: 6px;
     padding: 1px 8px;
-}
-
-.saveButton:hover{
+  }
+  
+  /* save button hover styles */
+  .saveButton:hover {
     background-color: rgb(66, 66, 66);
-}
-
-
-.view-switch{
+  }
+  
+  /* view switch styles */
+  .view-switch {
     border: 1px solid grey;
     padding: 5px 10px;
     border-radius: 6px;
-}
-
-
-.view-switch svg{
+  }
+  
+  /* view switch SVG styles */
+  .view-switch svg {
     font-size: 26px;
     cursor: pointer;
-}
-
-
-.active-icon{
+  }
+  
+  /* active icon styles */
+  .active-icon {
     color: black;
-    
-}
-
-.inactive-icon{
+  }
+  
+  /* inactive icon styles */
+  .inactive-icon {
     color: grey;
-}
+  }
 
-
-.math{
+/* math styles */
+.math {
     display: inline-flex;
-}
-
-@media only screen and (max-width: 700px) {
+  }
+  
+  /* media query for small screens */
+  @media only screen and (max-width: 700px) {
     .filter {
-        padding: 8px 4px;
+      padding: 8px 4px;
     }
-}
+  }
+  
 
